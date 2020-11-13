@@ -34,7 +34,7 @@
     docker-compose up
 ```
 
-### 4) Run application test locally
+### 4) Run tests and app locally
 
 To run services and test locally, you need to have installed postgres sql
 database and redis.
