@@ -1,0 +1,74 @@
+name: 'demoapp'
+description: 'base3 demo application'
+prefix: '/'
+app_version: '0.0.1'
+host: 'localhost'
+port: &port 9000
+
+apptype: 'monolith'
+
+services:
+  users:
+    name: 'Users'
+    prefix: '/api/users'
+  contacts:
+    name: 'Contacts'
+    prefix: '/api/contacts'
+
+store:
+  type: 'memory'
+
+db:
+  type: 'postgres'
+  port: 5432
+  host: 'localhost'
+  username: 'demo'
+  password: 'demo'
+  database: 'demo'
+
+authorization:
+  key: 'Authorization'
+
+logging:
+  version: 1
+  request_logger: base
+  formatters:
+    brief:
+      format: '%(asctime)s %(name)s %(levelname)s : %(message)s'
+    detailed:
+      format: 'time="%(asctime)s" logger="%(name)s" level="%(levelname)s" %(message)s'
+  handlers:
+    console:
+      class: logging.StreamHandler
+      level: CRITICAL
+      formatter: brief
+      stream: ext://sys.stdout
+    file:
+      class : logging.handlers.RotatingFileHandler
+      level: DEBUG
+      formatter: detailed
+      filename: /tmp/demo_users.log
+      backupCount: 3
+  loggers:
+    base:
+      level: DEBUG
+      handlers:
+        - console
+        - file
+      propagate: no
+    tornado.access:
+      level: DEBUG
+      handlers:
+        - file
+    tornado.application:
+      level: DEBUG
+      handlers:
+        - file
+    tornado.general:
+      level: DEBUG
+      handlers:
+        - file
+  root:
+    level: WARNING
+    handlers:
+      - console
