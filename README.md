@@ -44,26 +44,26 @@ demo, test_demo, demo_contacts, test_demo_contacts, demo_users and test_demo_use
 
 
 ```bash
-cd users
-python3 -m venv .venv
-.venv/bin/pip install -r requirements.txt
+    cd users
+    python3 -m venv .venv
+    .venv/bin/pip install -r requirements.txt
 
-cd ../mailer
-python3 -m venv .venv
-.venv/bin/pip install -r requirements.txt
+    cd ../mailer
+    python3 -m venv .venv
+    .venv/bin/pip install -r requirements.txt
 
-cd ../contacts
-python3 -m venv .venv
-.venv/bin/pip install -r requirements.txt
+    cd ../contacts
+    python3 -m venv .venv
+    .venv/bin/pip install -r requirements.txt
 
-cd ..
-python3 -m venv .venv
-.venv/bin/pip install -r requirements.txt
+    cd ..
+    python3 -m venv .venv
+    .venv/bin/pip install -r requirements.txt
 
-#run tests
-./alltests.sh
+    #run tests
+    ./alltests.sh
 
-#start monolith version of app
-./.venv/bin/python app.py 
+    #start monolith version of app
+    ./.venv/bin/python app.py 
 ```
 
