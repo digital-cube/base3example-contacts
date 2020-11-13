@@ -10,16 +10,60 @@
 
 ### Installation
 
+### 1) Checkout code and submodules
+
 ```bash
     git clone https://github.com/digital-cube/base3example-contacts.git
     cd base3example-contacts
     git submodule update --init --recursive
+```
 
+### 2) create keys in users service
+
+```bash
     cd users/keys
     ssh-keygen -t rsa -b 1024 -m PEM -f jwt.private_key
     openssl rsa -in jwt.private_key -pubout -outform PEM -out jwt.public_key
     rm jwt.private_key.pub
     cd ../..
+```
 
+### 3) run application in docker 
+
+```bash
     docker-compose up
 ```
+
+### 4) run application test locally
+
+to run services and test locally, you need to have installed postgres sql
+database and redis.
+
+in postgres create user demo, and the following databases:
+demo, test_demo, demo_contacts, test_demo_contacts, demo_users and test_demo_users
+
+
+```bash
+cd users
+python3 -m venv .venv
+.venv/bin/pip install -r requirements.txt
+
+cd ../mailer
+python3 -m venv .venv
+.venv/bin/pip install -r requirements.txt
+
+cd ../contacts
+python3 -m venv .venv
+.venv/bin/pip install -r requirements.txt
+
+cd ..
+python3 -m venv .venv
+.venv/bin/pip install -r requirements.txt
+
+#run tests
+./alltests.sh
+
+#start monolith version of app
+./.venv/bin/python app.py 
+```
+
