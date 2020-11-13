@@ -1,0 +1,6 @@
+[submodule "mailer"]
+	path = mailer
+	url = https://github.com/digital-cube/base3service-mailer.git
+[submodule "users"]
+	path = users
+	url = https://github.com/digital-cube/base3service-users.git
