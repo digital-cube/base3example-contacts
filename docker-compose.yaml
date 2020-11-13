@@ -1,0 +1,103 @@
+services:
+
+
+  redis:
+    container_name: redis
+    image: redis:alpine
+    hostname: redis
+    command: redis-server
+    labels:
+      NAME: redis
+
+      
+  postgres:
+    container_name: postgres
+    image: postgres
+    restart: always
+    env_file:
+      - dev.env
+      
+    environment:
+      - POSTGRES_USER=demo
+      - POSTGRES_PASSWORD=demo
+      - POSTGRES_DB=default
+
+    volumes:
+      - ./docker_postgres_init.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql
+
+
+  users:
+    container_name: users
+
+    build: 
+      context: .
+      dockerfile: Dockerfile.users
+
+    depends_on:
+      - redis
+      - postgres
+
+    env_file:
+      - dev.env
+      
+    environment:
+      - ENVIRONMENT=docker
+      
+    command: /app/service.sh
+
+    ports:
+      - 10000:80
+
+    volumes:
+      - './users:/app'
+
+  contacts:
+    container_name: contacts
+
+    build:
+      context: .
+      dockerfile: Dockerfile.contacts
+
+    depends_on:
+      - redis
+      - postgres
+
+    env_file:
+      - dev.env
+
+    environment:
+      - ENVIRONMENT=docker
+
+    command: /app/service.sh
+
+    ports:
+      - 10001:80
+
+    volumes:
+      - './contacts:/app'
+
+  mailer:
+    container_name: mailer
+
+    build:
+      context: .
+      dockerfile: Dockerfile.mailer
+
+    depends_on:
+      - redis
+      - postgres
+
+    env_file:
+      - dev.env
+
+    environment:
+      - ENVIRONMENT=docker
+      - SENDGRID_KEY=$SENDGRID_KEY
+
+    command: /app/service.sh
+
+    ports:
+      - 10002:80
+
+    volumes:
+      - './mailer:/app'
