@@ -18,7 +18,7 @@
     git submodule update --init --recursive
 ```
 
-### 2) create keys in users service
+### 2) Create keys in users service
 
 ```bash
     cd users/keys
@@ -28,18 +28,18 @@
     cd ../..
 ```
 
-### 3) run application in docker 
+### 3) Run application in docker 
 
 ```bash
     docker-compose up
 ```
 
-### 4) run application test locally
+### 4) Run application test locally
 
-to run services and test locally, you need to have installed postgres sql
+To run services and test locally, you need to have installed postgres sql
 database and redis.
 
-in postgres create user demo, and the following databases:
+In postgres create user demo, and the following databases:
 demo, test_demo, demo_contacts, test_demo_contacts, demo_users and test_demo_users
 
 
